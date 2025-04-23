@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Form</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<style>
+   
+   body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #f4f4f4;
+}
+
+.register-container {
+    background-color: white;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+}
+
+.register-form h2 {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.input-group {
+    margin-bottom: 20px;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 14px;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #f3f0f0;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.btn {
+    width: 100%;
+    padding: 10px;
+    background-color: #2ecc71;
+    color: rgb(160, 13, 13);
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+    background-color: #27ae60;
+}
+
+@media (max-width: 768px) { 
+    .register-container {
+        padding: 20px; 
+    }
+
+    .input-group input, .btn {
+        font-size: 14px;
+        padding: 8px;
+    }
+}
+
+@media (max-width: 480px) {
+    .register-container {
+        padding: 15px;
+    }
+
+    .register-form h2 {
+        font-size: 18px;
+    }
+
+    .input-group input, .btn {
+        font-size: 12px;
+        padding: 6px;
+    }
+}
+
+</style>
+    
+   
+
+<body>
+    <div class="form-container">
+        <h2>Registration Form</h2>
+        <form name="formName" onsubmit="return validateForm()" method="post">
+            <div class="form-group">
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username">
+                <span id="userr"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="text" id="email" name="email">
+                <span id="emaerr"></span>
+
+
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="text" id="passw" name="password" maxlength="10">
+                <span id="passerr"></span>
+                <span id="passtrue"></span>
+                <p id="message"></p>
+            </div>
+
+            <div class="form-group">
+                <label for="confirm-password">Confirm Password:</label>
+                <input type="text" id="confirmpassword" name="confirm-password">
+                <span id="conerr"></span>
+                <p id="conmessage"></p>
+                <span id="match">password is</span>
+
+                <div class="form-group">
+                    <label>Gender:</label>
+                    <div>
+                        <input type="radio" id="male" name="gender" value="male">
+                        <label for="male">Male</label>
+                    </div>                    <div>
+                        <input type="radio" id="female" name="gender" value="female">
+                        <label for="female">Female</label>
+                    </div>
+                    <div>
+                        <input type="radio" id="other" name="gender" value="other">
+                        <label for="other">Other</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="role">Select Role:</label>
+                    <select id="role" name="role">
+                        <option value="">Select your role</option>
+                        <option value="admin">Admin</option>
+                        <option value="user">User</option>
+                        <option value="guest">Guest</option>
+                    </select>
+                </div>
+
+                <button type="submit">Register</button>
+        </form>
+    </div>
+
+
+    <script>
+
+        function valid(email) {
+            const pattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return pattern.test(email);
+        }
+
+        function CheckPassword(pass) {
+
+            const pattern = /^as(?=.\d)(?=.[~`!@#$%^&()--+={}\[\]|\\:;"'<>,.?/_₹])(?=.[a-z])(?=.*[A-Z]).{5,10}$/;
+            return pattern.test(pass);
+
+        }
+
+        email.addEventListener('input', () => {
+
+            document.getElementById("userr").innerText = "";
+
+        });
+
+
+
+        let passw = document.getElementById("passw");
+        let message = document.getElementById("message");
+
+
+
+        passw.addEventListener('input', () => {
+
+
+
+
+            if (passw.value.length > 0) {
+
+                message.style.display = "block";
+                message.style.color = "blue";
+                message.innerText = "password is week";
+            }
+            else {
+
+                message.innerText = "";
+            }
+            if (passw.value.length >= 4 && passw.value.length < 8) {
+
+                message.style.color = "orange";
+                message.innerText = "password is medium";
+            }
+            else if (passw.value.length >= 8) {
+
+                message.style.color = "green";
+                message.innerText = "password is Strong";
+
+            }
+
+
+        });
+
+
+
+        confirmpassword.addEventListener('input', () => {
+
+
+            document.getElementById("message").innerText = "";
+            document.getElementById("passerr").innerText = "";
+
+
+            if (confirmpassword.value == passw.value) {
+
+                match.style.display = "block";
+                match.innerText = "password is matched";
+                match.style.color = "green";
+            }
+            else {
+
+                match.innerText = "password is not matched";
+                match.style.color = "red";
+            }
+
+        });
+
+
+        function validateForm() {
+
+            let username = document.getElementById("username").value;
+            let email = document.getElementById("email").value;
+            let pass = document.getElementById("passw");
+            let confirmpass = document.getElementById("confirmpassword");
+            let conerr = document.getElementById("conerr");
+
+
+            document.getElementById("emaerr").innerText = "";
+            document.getElementById("userr").innerText = "";
+            document.getElementById("passerr").innerText = "";
+            document.getElementById("conerr").innerText = "";
+
+            if (username == "") {
+
+                var user = document.getElementById("userr");
+                user.innerText = "Name be must field out";
+                user.style.color = "red";
+                return false;
+
+            }
+
+            if (email == "") {
+
+                var mail = document.getElementById("emaerr");
+                mail.innerText = "Emial be must field out";
+                mail.style.color = "red";
+                return false;
+            }
+            else if (valid(email) != true) {
+
+                document.getElementById("emaerr").innerText = "emial is Invalid";
+                document.getElementById("emaerr").style.color = "red";
+                return false;
+
+            }
+
+            if (pass.value  == "") {
+
+                let pass = document.getElementById("passerr");
+                pass.innerText = "password must be feild";
+                pass.style.color = "red";
+                return false;
+            }
+            // else if (CheckPassword(pass) != true) {
+
+            //     document.getElementById("passerr").innerText = "password in spacial charcter #,@,%";
+            //     document.getElementById("passerr").style.color = "red";
+            //     return false;``````````
+            // }
+            if (confirmpass.value == "") {
+
+                document.getElementById("conerr").innerText = "password must be field";
+                document.getElementById("conerr").style.color = "red";
+                return false;
+            }
+            else if (pass.value == confirmpass.value) {
+
+                conerr.innerText = "password is matched";
+                conerr.style.color = "green";
+                return false;
+
+            }
+            else {
+
+                conerr.innerText = "password is not matched";
+                conerr.style.color = "red";
+                return false;
+            }
+            return false;
+
+        }
+
+
+    </script>
+</body>
+
+</html>
